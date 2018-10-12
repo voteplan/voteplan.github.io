@@ -1,8 +1,48 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
+		<script>
+			var heading = 'Hobart City Council Election 2018';
+			var subheading = 'Councillors';
+            var candidates = [
+'ALLARDICE, Robin',
+'BEHRAKIS, Simon',
+'BLOOMFIELD, Louise',
+'BRISCOE, Jeff',
+'BURNET, Helen',
+'CHRISTIE, Ron',
+'COATS, Will',
+'CORR, Brian',
+'DENISON, Tanya',
+'DUT, Salpha',
+'DUTTA, Mike',
+'EWIN, Holly',
+'FRAME, Nigel',
+'HARVEY, Bill',
+'IRWIN, Fiona',
+'McCALLUM, Stephen',
+'MALLETT, Robert',
+'MERRIDEW, Chris',
+'NGOR, Atak',
+'PEELMAN, Ben',
+'REYNOLDS, Anna',
+'ROFFE, Richard',
+'SCHOFIELD, Cat',
+'SEXTON, Peter',
+'SHERLOCK, Zelinda',
+'SIENA, Kasha',
+'STANAWAY, Glen',
+'STANSFIELD, Philip',
+'TANG, Yongbei',
+'TAYLOR, Andy (Tubes)',
+'TAYLOR, Bec',
+'THOMAS, Damon',
+'VOGEL, Stefan',
+'WALDHOFF, Martin',
+'ZUCCO, Marti'
+            ]
+		</script>
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
 
@@ -50,7 +90,7 @@ ol#items li {
     cursor: move;
     cursor: grab;
     background-color: #fff;
-    widtH: 400px;
+    width: 470px;
 	white-space: nowrap;
 }
 
@@ -58,7 +98,7 @@ ol#items li {
     background-color: #ddd !important;;
 }
 
-.toggle:before {
+.toggle-span:before {
     content: "✔ ";
 }
 
@@ -69,10 +109,6 @@ ol#items li {
 
 .hovering {
     background-color: #bbb !important;
-}
-
-.name {
-    width: 300px;
 }
 
 .instructions {
@@ -86,7 +122,7 @@ ol#items li {
 }
 
 input {
-    width: 200px;
+    width: 270px;
     margin-left: 10px;
     float: right;
 }
@@ -97,8 +133,8 @@ input {
 
     <body>
 
-        <h1>Hobart City Council Election 2018</h1>
-        <h2>Councillors</h2>
+        <h1 id="heading"></h1>
+        <h2 id="subheading"></h2>
 
         <div class="instructions">
             <h3>Instructions:</h3>
@@ -121,44 +157,10 @@ input {
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 
         <script>
+$(document).prop('title', 'VotePlan - ' + heading + ' - ' + subheading);
 
-            var candidates = [
-'ALLARDICE, Robin',
-'BEHRAKIS, Simon',
-'BLOOMFIELD, Louise',
-'BRISCOE, Jeff',
-'BURNET, Helen',
-'CHRISTIE, Ron',
-'COATS, Will',
-'CORR, Brian',
-'DENISON, Tanya',
-'DUT, Salpha',
-'DUTTA, Mike',
-'EWIN, Holly',
-'FRAME, Nigel',
-'HARVEY, Bill',
-'IRWIN, Fiona',
-'McCALLUM, Stephen',
-'MALLETT, Robert',
-'MERRIDEW, Chris',
-'NGOR, Atak',
-'PEELMAN, Ben',
-'REYNOLDS, Anna',
-'ROFFE, Richard',
-'SCHOFIELD, Cat',
-'SEXTON, Peter',
-'SHERLOCK, Zelinda',
-'SIENA, Kasha',
-'STANAWAY, Glen',
-'STANSFIELD, Philip',
-'TANG, Yongbei',
-'TAYLOR, Andy (Tubes)',
-'TAYLOR, Bec',
-'THOMAS, Damon',
-'VOGEL, Stefan',
-'WALDHOFF, Martin',
-'ZUCCO, Marti'
-            ]
+$('#heading').text(heading);
+$('#subheading').text(subheading);
 
 var items = $('#items')
 $.each(candidates, function(i) {
@@ -194,6 +196,7 @@ var sortable = Sortable.create(el, {
 $('ol#items li').on('click', function(e){
 	if (!$(e.target).hasClass('notes')) {
 		$(this).toggleClass('toggle');
+		$(this).children('span').first().toggleClass('toggle-span');
 	}
     canHover = true;
 });
@@ -213,7 +216,6 @@ $('ol#items li').bind('mouseenter', function(){
 document.documentElement.addEventListener('mouseup', function(e){
 	canHover = true;
 });
-
         </script>
         <body>
 </html>

@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
+		<script>
+			var heading = 'Hobart City Council Election 2018';
+			var subheading = 'Deputy Lord Mayor';
+            var candidates = [
+'ALLARDICE, Robin',
+'BEHRAKIS, Simon',
+'BLOOMFIELD, Louise',
+'BURNET, Helen',
+'COATS, Will',
+'MERRIDEW, Chris',
+'ROFFE, Richard',
+'SHERLOCK, Zelinda',
+'STANSFIELD, Philip',
+'TAYLOR, Andy (Tubes)',
+'WALDHOFF, Martin'
+            ]
+		</script>
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
 
@@ -50,7 +66,7 @@ ol#items li {
     cursor: move;
     cursor: grab;
     background-color: #fff;
-    widtH: 400px;
+    width: 470px;
 	white-space: nowrap;
 }
 
@@ -58,7 +74,7 @@ ol#items li {
     background-color: #ddd !important;;
 }
 
-.toggle:before {
+.toggle-span:before {
     content: "✔ ";
 }
 
@@ -69,10 +85,6 @@ ol#items li {
 
 .hovering {
     background-color: #bbb !important;
-}
-
-.name {
-    width: 300px;
 }
 
 .instructions {
@@ -86,19 +98,19 @@ ol#items li {
 }
 
 input {
-    width: 200px;
+    width: 270px;
     margin-left: 10px;
     float: right;
 }
         </style>
 		
-		<title>VotePlan - Hobart City Council Election 2018 - Deputy Lord Mayor</title>
+		<title>VotePlan - Hobart City Council Election 2018 - Councillors</title>
     </head>
 
     <body>
 
-        <h1>Hobart City Council Election 2018</h1>
-        <h2>Deputy Lord Mayor</h2>
+        <h1 id="heading"></h1>
+        <h2 id="subheading"></h2>
 
         <div class="instructions">
             <h3>Instructions:</h3>
@@ -106,7 +118,7 @@ input {
                 <li>Drag names to order them.</li>
                 <li>Click names to toggle tick.</li>
                 <li>Use the text boxes to add notes.</li>
-            </ul>
+			</ul>
 			<p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>
         </div>
 
@@ -121,20 +133,10 @@ input {
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 
         <script>
+$(document).prop('title', 'VotePlan - ' + heading + ' - ' + subheading);
 
-            var candidates = [
-'ALLARDICE, Robin',
-'BEHRAKIS, Simon',
-'BLOOMFIELD, Louise',
-'BURNET, Helen',
-'COATS, Will',
-'MERRIDEW, Chris',
-'ROFFE, Richard',
-'SHERLOCK, Zelinda',
-'STANSFIELD, Philip',
-'TAYLOR, Andy (Tubes)',
-'WALDHOFF, Martin'
-            ]
+$('#heading').text(heading);
+$('#subheading').text(subheading);
 
 var items = $('#items')
 $.each(candidates, function(i) {
@@ -170,6 +172,7 @@ var sortable = Sortable.create(el, {
 $('ol#items li').on('click', function(e){
 	if (!$(e.target).hasClass('notes')) {
 		$(this).toggleClass('toggle');
+		$(this).children('span').first().toggleClass('toggle-span');
 	}
     canHover = true;
 });
@@ -189,7 +192,6 @@ $('ol#items li').bind('mouseenter', function(){
 document.documentElement.addEventListener('mouseup', function(e){
 	canHover = true;
 });
-
         </script>
         <body>
 </html>
