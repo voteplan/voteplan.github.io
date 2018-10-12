@@ -10,7 +10,6 @@
 * {
     font-family: 'Open Sans', sans-serif;
     color: #111;
-    font-weight: semi-bold;
 }
 
 body {
@@ -163,15 +162,15 @@ input {
 
 var items = $('#items')
 $.each(candidates, function(i) {
-        var li = $('<li/>')
+    var li = $('<li/>')
         .appendTo(items);
-    var span = $('<span/>')
-        .addClass('name')
-        .text(candidates[i])
-        .appendTo(li);
     var input = $('<input/>')
         .addClass('notes')
         .attr('placeholder', 'Notes')
+        .appendTo(li);
+    var span = $('<span/>')
+        .addClass('name')
+        .text(candidates[i])
         .appendTo(li);
 });
 
