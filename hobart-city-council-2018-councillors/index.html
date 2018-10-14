@@ -43,6 +43,34 @@
 'WALDHOFF, Martin',
 'ZUCCO, Marti'
             ]
+			
+		var deputyLordMayorCandidates = [
+'ALLARDICE, Robin',
+'BEHRAKIS, Simon',
+'BLOOMFIELD, Louise',
+'BURNET, Helen',
+'COATS, Will',
+'MERRIDEW, Chris',
+'ROFFE, Richard',
+'SHERLOCK, Zelinda',
+'STANSFIELD, Philip',
+'TAYLOR, Andy (Tubes)',
+'WALDHOFF, Martin'
+        ]
+		
+		var lordMayorCandidates = [
+'ALEXANDER, Darren',
+'BRISCOE, Jeff',
+'CHRISTIE, Ron',
+'DENISON, Tanya',
+'DUTTA, Mike',
+'HARVEY, Bill',
+'MALLETT, Robert',
+'REYNOLDS, Anna',
+'SEXTON, Peter',
+'THOMAS, Damon',
+'ZUCCO, Marti'
+        ]
 		</script>
 
         <script
@@ -134,6 +162,17 @@ input {
     margin-left: 10px;
     float: right;
 }
+
+ol#lordMayorCandidatesList li, ol#deputyLordMayorCandidatesList li {
+    text-align: left;
+    width: 470px;
+}
+
+
+ol#lordMayorCandidatesList, ol#deputyLordMayorCandidatesList {
+    display: inline-block;
+	
+}
         </style>
 		
 		<title>VotePlan - Hobart City Council Election 2018 - Councillors</title>
@@ -154,8 +193,15 @@ input {
 			<p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>
         </div>
 
-        <ol id="items">
-        </ol>
+        <ol id="items"></ol>
+		
+		<h3>Lord Mayor candidates in order above</h3>
+		
+		<ol id="lordMayorCandidatesList"></ol>
+		
+		<h3>Deputy Lord Mayor candidates in order above</h3>
+		
+		<ol id="deputyLordMayorCandidatesList"></ol>
 		
         <script>
 $(document).prop('title', 'VotePlan - ' + heading + ' - ' + subheading);
@@ -187,13 +233,14 @@ var sortable = Sortable.create(el, {
             $(this).find('.index').html(newIndex);
         });
         canHover = true;
+		
+		generateLists();
     },     
     onChoose: function (evt) {
         canHover = false;
         $('ol#items li').removeClass('hovering');
     },
 });
-
 $('ol#items li').on('click', function(e){
 	if (!$(e.target).hasClass('notes')) {
 		$(this).toggleClass('toggle');
@@ -217,6 +264,25 @@ $('ol#items li').bind('mouseenter', function(){
 document.documentElement.addEventListener('mouseup', function(e){
 	canHover = true;
 });
+
+function generateLists() {		
+	var newLordMayorList = $('<ol/>').attr('id', 'lordMayorCandidatesList');
+	var newDeputyLordMayorList = $('<ol/>').attr('id', 'deputyLordMayorCandidatesList');	
+	$('ol#items li').each(function() {
+		if (lordMayorCandidates.includes($(this).text())) {
+			$('<li/>').text($(this).text()).appendTo(newLordMayorList);
+		}
+		if (deputyLordMayorCandidates.includes($(this).text())) {
+			$('<li/>').text($(this).text()).appendTo(newDeputyLordMayorList);
+		}
+	});
+	
+	$('#lordMayorCandidatesList').replaceWith(newLordMayorList);
+	$('#deputyLordMayorCandidatesList').replaceWith(newDeputyLordMayorList);
+}
+
+generateLists();
+
         </script>
         <body>
 </html>
