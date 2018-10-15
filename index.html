@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 
 <html>
-
     <head>
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
 
@@ -10,7 +16,6 @@
 * {
     font-family: 'Open Sans', sans-serif;
     color: #111;
-    font-weight: semi-bold;
 }
 
 body {
@@ -25,6 +30,84 @@ h1 {
     font-size: 19px;
 }
 
+h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    margin: 0;
+	margin-top: 20px;
+}
+
+ol#items {
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ol#items li {
+    text-align: left;
+    padding: 4px 8px;
+    border: 1px solid #bbb;
+    cursor: move;
+    cursor: grab;
+    background-color: #fff;
+    width: 470px;
+    white-space: nowrap;
+}
+
+.toggle {
+    background-color: #ddd !important;;
+}
+
+.toggle-span:before {
+    content: "✔ ";
+}
+
+.ghost {
+    background-color: #888 !important;
+    position: relative;
+}
+
+.hovering {
+    background-color: #bbb !important;
+}
+
+.instructions {
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.instructions-list {
+    margin-top: 10px;
+}
+
+input {
+    width: 270px;
+    margin-left: 10px;
+    float: right;
+}
+
+#url {
+	display: inline-block;
+	background-color: #fff;
+	user-select: all;
+	margin: 0;
+	word-break: break-all;
+	width: 500px;
+	border: 1px solid #bbb;
+}
+
+#names-textarea {
+	font-size: 16px;
+}
+
 .links {
     width: 400px;
     margin: 0 auto;
@@ -34,20 +117,196 @@ h1 {
 .link-list {
 	margin-top: 10px;
 }
+
+ol.subsetList li {
+    text-align: left;
+    width: 470px;
+}
+
+ol.subsetList {
+    display: inline-block;
+}
+
+#subsetDiv {
+	margin-bottom: 30px;
+}
+
+h3#subsetDiv {
+	margin: 0 !important;
+}
+
+.exampleSpan {
+	background-color: #fff;
+}
+
+p {
+	max-width: 800px;
+	margin: 20px auto;
+}
         </style>
-		
-		<title>VotePlan</title>
+        
+        <title>VotePlan</title>
     </head>
 
     <body>
+        <div id="content"></div>
+        
+        <script>
 
-        <h1>Hobart City Council Election 2018</h1>
-        <div class="links">
-            <ul class="link-list">
-                <li><a href="hobart-city-council-2018-councillors">Councillors</a></li>
-                <li><a href="hobart-city-council-2018-lord-mayor">Lord Mayor</a></li>
-                <li><a href="hobart-city-council-2018-deputy-lord-mayor">Deputy Lord Mayor</a></li>
-			</ul>
-        </div>
+var questionMarkIndex = window.location.href.indexOf('?');
+
+if (questionMarkIndex < 0) {
+	$('#content').html(
+        '<h1>Hobart City Council Election 2018</h1>'+
+        '<div class="links">'+
+        '    <ul class="link-list">'+
+        '        <li><a href="hobart-city-council-2018-councillors">Councillors</a></li>'+
+        '        <li><a href="hobart-city-council-2018-lord-mayor">Lord Mayor</a></li>'+
+        '        <li><a href="hobart-city-council-2018-deputy-lord-mayor">Deputy Lord Mayor</a></li>'+
+		'	</ul>'+
+        '</div>'
+	);
+	
+} else if (window.location.href.length == window.location.href.indexOf('?') + 1) {
+    $('#content').html(		
+		'<h3><a href="https://voteplan.github.io/?BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor|COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor|DAWKINS,+Andrea;Mayor|FINLAY,+Janie;Mayor|FITCH,+Basil;Deputy+Mayor|GIBSON,+Danny;GROAT,+Daniel;Mayor|HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor|McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor|SALT,+Bob;SANDS,+Ted;Mayor|SHERRIN,+Joshua;Deputy+Mayor|SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor|STOJANSEK,+Karina;Mayor|SWEENEY,+Tegan;TAPSELL,+Mark;Mayor|VAN+ZETTEN,+Albert;Mayor|WALKER,+Tim;Deputy+Mayor|WILLIAMS,+Emma;Deputy+Mayor|WOOD,+Simon">Click here for an example list</a></h3>'+
+		'<h3>Step 1</h3>'+
+        '<p>Put names in the text area below, each name on its own line.</p>'+
+		'<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a | (vertical bar) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor|LASTNAME, Firstname</span></p>'+
+		'<textarea id="names-textarea" rows=20 cols=40 oninput=\'this.style.height = "";this.style.height = this.scrollHeight + "px"\'></textarea>'+
+		'<h3>Step 2</h3>'+
+		'<p>Copy and share the URL below. You may want to use a URL shortener.</p>'+
+        '<p id="url">https://voteplan.github.io/?</p>'
+    );
+    $('#names-textarea').on('change keyup paste', function() {
+        $('#url').text(
+			'https://voteplan.github.io/?'+
+			this.value
+			.trim()
+			.replace(/ {2,}/g, ' ')
+			.replace(/\n{2,}/g, '\n')
+			.replace(/<>;/g, '')
+			.replace(/\n/g, ';')
+			.replace(/ /g, '+')
+		);
+    });
+    
+} else {
+    $('#content').html(
+        '<div class="instructions">'+
+        '    <h3>Instructions:</h3>'+
+        '    <ul class="instructions-list">'+
+        '        <li>Drag names to order them.</li>'+
+        '        <li>Click names to toggle tick.</li>'+
+        '        <li>Use the text boxes to add notes.</li>'+
+        '    </ul>'+
+        '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
+        '</div>'+
+        '<ol id="items"></ol>'
+    )
+	
+	var rawNames = window.location.href.slice(questionMarkIndex + 1).replace(/\+/g, ' ').split(';');
+	var names = [];
+	var subsets = {};
+	
+	$.each(rawNames, function(i) {
+		var matches = rawNames[i].match(/([^|]+)|([^|]+)/g);
+		var name = matches.pop().trim();
+		
+		for (var i = 0; i < matches.length; i++) {
+			var subsetName = matches[i].trim();
+			(subsets[subsetName] = subsets[subsetName] || []).push(name);
+		}
+		
+		names.push(name);
+	});
+            
+    var items = $('#items')
+    $.each(names, function(i) {
+        var li = $('<li/>')
+            .appendTo(items);
+        var input = $('<input/>')
+            .addClass('notes')
+            .attr('placeholder', 'Notes')
+            .appendTo(li);
+        var span = $('<span/>')
+            .addClass('name')
+            .text(names[i])
+            .appendTo(li);
+    });
+
+    var canHover = true;
+	
+	var el = document.getElementById('items');
+    var sortable = Sortable.create(el, {
+        ghostClass: 'ghost',
+        onEnd: function (evt) {
+            $('ol#items li').each(function (index) {
+                var newIndex = index + 1 + '.';
+                $(this).find('.index').html(newIndex);
+            });
+            canHover = true;
+			generateLists();
+        },     
+        onChoose: function (evt) {
+            canHover = false;
+            $('ol#items li').removeClass('hovering');
+        },
+    });
+
+    $('ol#items li').on('click', function(e){
+        if (!$(e.target).hasClass('notes')) {
+            $(this).toggleClass('toggle');
+            $(this).children('span').first().toggleClass('toggle-span');
+        }
+        canHover = true;
+    });
+
+    $('.notes').focus(function(){
+        canHover = true;
+    });
+
+    $('ol#items li').bind('mouseenter', function(){
+        if (canHover) {
+            $(this).addClass('hovering');
+        }
+    }).bind('mouseleave', function(){
+        $(this).removeClass('hovering');
+    });
+
+    document.documentElement.addEventListener('mouseup', function(e){
+        canHover = true;
+    });
+	
+	$('<div/>').attr('id', 'subsetDiv').appendTo('#content');
+	
+	function generateLists() {
+		var subsetDiv = $('<div/>').attr('id', 'subsetDiv');
+		
+		for (key in subsets) {
+			if (subsets.hasOwnProperty(key)) {
+				$('<h3/>')
+					.text(key+' (in the order above)')
+					.appendTo(subsetDiv);
+				var subsetList = $('<ol/>').addClass('subsetList');
+				
+				$('ol#items li').each(function() {
+					if (subsets[key].includes($(this).text())) {
+						$('<li/>')
+							.text($(this).text())
+							.appendTo(subsetList);
+					}
+				});
+				subsetList.appendTo(subsetDiv);
+			}
+		}
+		subsetDiv.appendTo('#content')
+		
+		$('#subsetDiv').replaceWith(subsetDiv);
+	}
+	
+	generateLists();
+}
+        </script>
         <body>
 </html>
