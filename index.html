@@ -144,13 +144,13 @@ p {
 	margin: 20px auto;
 }
         </style>
-        
+
         <title>VotePlan</title>
     </head>
 
     <body>
         <div id="content"></div>
-        
+
         <script>
 
 var questionMarkIndex = window.location.href.indexOf('?');
@@ -166,9 +166,9 @@ if (questionMarkIndex < 0) {
 		'	</ul>'+
         '</div>'
 	);
-	
+
 } else if (window.location.href.length == window.location.href.indexOf('?') + 1) {
-    $('#content').html(		
+    $('#content').html(
 		'<h3><a href="https://voteplan.github.io/?BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Click here for an example list</a></h3>'+
 		'<h3>Step 1</h3>'+
         '<p>Put names in the text area below, each name on its own line.</p>'+
@@ -190,7 +190,7 @@ if (questionMarkIndex < 0) {
 			.replace(/ /g, '+')
 		);
     });
-    
+
 } else {
     $('#content').html(
         '<div class="instructions">'+
@@ -204,23 +204,23 @@ if (questionMarkIndex < 0) {
         '</div>'+
         '<ol id="items"></ol>'
     )
-	
+
 	var rawNames = window.location.href.slice(questionMarkIndex + 1).replace(/\+/g, ' ').split(';');
 	var names = [];
 	var subsets = {};
-	
+
 	$.each(rawNames, function(i) {
 		var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
 		var name = matches.pop().trim();
-		
+
 		for (var i = 0; i < matches.length; i++) {
 			var subsetName = matches[i].trim();
 			(subsets[subsetName] = subsets[subsetName] || []).push(name);
 		}
-		
+
 		names.push(name);
 	});
-            
+
     var items = $('#items')
     $.each(names, function(i) {
         var li = $('<li/>')
@@ -236,18 +236,14 @@ if (questionMarkIndex < 0) {
     });
 
     var canHover = true;
-	
+
 	var el = document.getElementById('items');
     var sortable = Sortable.create(el, {
         ghostClass: 'ghost',
         onEnd: function (evt) {
-            $('ol#items li').each(function (index) {
-                var newIndex = index + 1 + '.';
-                $(this).find('.index').html(newIndex);
-            });
             canHover = true;
 			generateLists();
-        },     
+        },
         onChoose: function (evt) {
             canHover = false;
             $('ol#items li').removeClass('hovering');
@@ -277,19 +273,19 @@ if (questionMarkIndex < 0) {
     document.documentElement.addEventListener('mouseup', function(e){
         canHover = true;
     });
-	
+
 	$('<div/>').attr('id', 'subsetDiv').appendTo('#content');
-	
+
 	function generateLists() {
 		var subsetDiv = $('<div/>').attr('id', 'subsetDiv');
-		
+
 		for (key in subsets) {
 			if (subsets.hasOwnProperty(key)) {
 				$('<h3/>')
 					.text(key+' (in the order above)')
 					.appendTo(subsetDiv);
 				var subsetList = $('<ol/>').addClass('subsetList');
-				
+
 				$('ol#items li').each(function() {
 					if (subsets[key].includes($(this).text())) {
 						$('<li/>')
@@ -301,10 +297,10 @@ if (questionMarkIndex < 0) {
 			}
 		}
 		subsetDiv.appendTo('#content')
-		
+
 		$('#subsetDiv').replaceWith(subsetDiv);
 	}
-	
+
 	generateLists();
 }
         </script>
