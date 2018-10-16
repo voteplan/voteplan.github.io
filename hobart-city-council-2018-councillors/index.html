@@ -228,10 +228,6 @@ var canHover = true;
 var sortable = Sortable.create(el, {
     ghostClass: 'ghost',
     onEnd: function (evt) {
-        $('ol#items li').each(function (index) {
-            var newIndex = index + 1 + '.';
-            $(this).find('.index').html(newIndex);
-        });
         canHover = true;
 		
 		generateLists();
