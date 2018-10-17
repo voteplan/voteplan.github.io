@@ -186,14 +186,13 @@ ol#alphabeticalDeputyLordMayorList {
 .listDiv {
 	margin: 15px auto;
 	width: 500px;
-	display: table;
 	background-color: #fff;
 	border-radius: 10px;
 	border: 1px solid hsl(28, 10%, 82%);
 }
 
-.listDiv h3 {
-	margin-top: 10px;
+.listContainerDiv {
+	padding: 20px;
 }
 
 #headingDiv {
@@ -230,30 +229,40 @@ ol#alphabeticalDeputyLordMayorList {
         <ol id="items"></ol>
 
 		<div class="listDiv">
+		<div class="listContainerDiv">
 		<h3>Lord Mayor candidates in the order above</h3>
 		<ol id="lordMayorCandidatesList"></ol>
 		</div>
-
+		</div>
 		
 		<div class="listDiv">
+		<div class="listContainerDiv">
 		<h3>Deputy Lord Mayor candidates in the order above</h3>
 		<ol id="deputyLordMayorCandidatesList"></ol>
 		</div>
+		</div>
 
 		<div class="listDiv">
+		<div class="listContainerDiv">
 		<h3>Councillor candidates in alphabetical order with the same numbers as above</h3>
 		<ol id="alphabeticalList"></ol>
 		</div>
+		</div>
 		
 		<div class="listDiv">
+		<div class="listContainerDiv">
 		<h3>Lord Mayor candidates in alphabetical order with the same numbers as above</h3>
 		<ol id="alphabeticalLordMayorList"></ol>
 		</div>
+		</div>
 		
 		<div class="listDiv">
+		<div class="listContainerDiv">
 		<h3>Deputy Lord Mayor candidates in alphabetical order with the same numbers as above</h3>
 		<ol id="alphabeticalDeputyLordMayorList"></ol>
 		</div>
+		</div>
+		
         <script>
 		
 $(document).prop('title', 'VotePlan - ' + heading + ' - ' + subheading);
