@@ -43,7 +43,7 @@
 'WALDHOFF, Martin',
 'ZUCCO, Marti'
             ]
-			
+
 		var deputyLordMayorCandidates = [
 'ALLARDICE, Robin',
 'BEHRAKIS, Simon',
@@ -57,7 +57,7 @@
 'TAYLOR, Andy (Tubes)',
 'WALDHOFF, Martin'
         ]
-		
+
 		var lordMayorCandidates = [
 'ALEXANDER, Darren',
 'BRISCOE, Jeff',
@@ -89,21 +89,17 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: hsl(28, 18%, 92%);
     text-align: center;
 }
 
 h1 {
-    margin-top: 20px;
-    margin-bottom: 0;
-    margin-left: 40px;
+	margin: 10px 20px;
     font-size: 19px;
 }
 
 h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 40px;
+	margin: 10px 20px;
     font-size: 24px;
     margin-bottom: 10px;
 }
@@ -114,7 +110,7 @@ h3 {
 
 ol#items {
     display: inline-block;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -122,16 +118,16 @@ ol#items {
 ol#items li {
     text-align: left;
     padding: 4px 8px;
-    border: 1px solid #bbb;
+    border: 1px solid hsl(28, 10%, 82%);
     cursor: move;
     cursor: grab;
     background-color: #fff;
-    width: 470px;
+    width: 500px;
 	white-space: nowrap;
 }
 
 .toggle {
-    background-color: #ddd !important;;
+    background-color: hsl(28, 10%, 75%) !important;
 }
 
 .toggle-span:before {
@@ -139,70 +135,97 @@ ol#items li {
 }
 
 .ghost {
-    background-color: #888 !important;
+    background-color: hsl(28, 7%, 60%) !important;
     position: relative;
 }
 
 .hovering {
-    background-color: #bbb !important;
+    background-color: hsl(28, 10%, 82%) !important;
 }
 
 .instructions {
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
     text-align: left;
+	margin-top: 40px;
 }
 
 .instructions-list {
 	margin-top: 10px;
 }
 
+.instructions-list li {
+	margin: 15px 0;
+}
+
 input {
     width: 270px;
     margin-left: 10px;
     float: right;
+    border: 1px solid hsl(28, 10%, 70%);
 }
 
-ol#lordMayorCandidatesList li, ol#deputyLordMayorCandidatesList li {
+ol#lordMayorCandidatesList li, ol#deputyLordMayorCandidatesList li, ol#alphabeticalList li {
     text-align: left;
-    width: 470px;
+    width: 500px;
 }
 
 
-ol#lordMayorCandidatesList, ol#deputyLordMayorCandidatesList {
+ol#lordMayorCandidatesList, ol#deputyLordMayorCandidatesList, ol#alphabeticalList {
     display: inline-block;
-	
+}
+
+.listDiv {
+	margin: 30px 0;
+}
+
+#headingDiv {
+    background-color: hsl(28, 10%, 82%);
+	display: inline-block;
+	border-radius: 10px;
 }
         </style>
-		
+
 		<title>VotePlan - Hobart City Council Election 2018 - Councillors</title>
     </head>
 
     <body>
 
-        <h1 id="heading"></h1>
-        <h2 id="subheading"></h2>
+		<div id="headingDiv">
+			<h1 id="heading"></h1>
+			<h2 id="subheading"></h2>
+		</div>
 
         <div class="instructions">
-            <h3>Instructions:</h3>
+			<p>VotePlan is a tool for helping you order candidates.</p>
             <ul class="instructions-list">
-                <li>Drag names to order them.</li>
-                <li>Click names to toggle tick.</li>
-                <li>Use the text boxes to add notes.</li>
+                <li>Drag names to order them (they start in alphabetical order).</li>
+                <li>You can use the text boxes to add notes.</li>
+                <li>You can click names to toggle a tick to remind yourself that you have ordered them.</li>
+				<li>Lists underneath for Lord Mayor and Deputy Lord Mayor will automatically change to be in the same order as your Councillor preferences.</li>
+				<li>Another list underneath has the Councillor candidates in alphabetical order with the same numbers as above to make finding candidate names on this page faster when you transfer numbers to your ballot paper.</li>
 			</ul>
 			<p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>
         </div>
 
         <ol id="items"></ol>
-		
-		<h3>Lord Mayor candidates in order above</h3>
-		
+
+		<div class="listDiv">
+		<h3>Lord Mayor candidates in the order above</h3>
 		<ol id="lordMayorCandidatesList"></ol>
+		</div>
+
 		
-		<h3>Deputy Lord Mayor candidates in order above</h3>
-		
+		<div class="listDiv">
+		<h3>Deputy Lord Mayor candidates in the order above</h3>
 		<ol id="deputyLordMayorCandidatesList"></ol>
-		
+		</div>
+
+		<div class="listDiv">
+		<h3>Councillor candidates in alphabetical order with the same numbers as above</h3>
+		<ol id="alphabeticalList"></ol>
+		</div>
+
         <script>
 $(document).prop('title', 'VotePlan - ' + heading + ' - ' + subheading);
 
@@ -229,14 +252,15 @@ var sortable = Sortable.create(el, {
     ghostClass: 'ghost',
     onEnd: function (evt) {
         canHover = true;
-		
+
 		generateLists();
-    },     
+    },
     onChoose: function (evt) {
         canHover = false;
         $('ol#items li').removeClass('hovering');
     },
 });
+
 $('ol#items li').on('click', function(e){
 	if (!$(e.target).hasClass('notes')) {
 		$(this).toggleClass('toggle');
@@ -261,9 +285,9 @@ document.documentElement.addEventListener('mouseup', function(e){
 	canHover = true;
 });
 
-function generateLists() {		
+function generateLists() {
 	var newLordMayorList = $('<ol/>').attr('id', 'lordMayorCandidatesList');
-	var newDeputyLordMayorList = $('<ol/>').attr('id', 'deputyLordMayorCandidatesList');	
+	var newDeputyLordMayorList = $('<ol/>').attr('id', 'deputyLordMayorCandidatesList');
 	$('ol#items li').each(function() {
 		if (lordMayorCandidates.includes($(this).text())) {
 			$('<li/>').text($(this).text()).appendTo(newLordMayorList);
@@ -272,9 +296,33 @@ function generateLists() {
 			$('<li/>').text($(this).text()).appendTo(newDeputyLordMayorList);
 		}
 	});
-	
+
 	$('#lordMayorCandidatesList').replaceWith(newLordMayorList);
 	$('#deputyLordMayorCandidatesList').replaceWith(newDeputyLordMayorList);
+
+	var alphabeticalNamesList = $('<ol/>').attr('id', 'alphabeticalList');
+
+	var alphabeticalNames = [];
+
+	$('ol#items li').each(function(i) {
+		alphabeticalNames.push({
+			"name": $(this).text(),
+			"value": i + 1
+		})
+	});
+
+	alphabeticalNames.sort(function (a, b) {
+		return a.name.localeCompare(b.name);
+	});
+
+	for (var i = 0; i < alphabeticalNames.length; i++) {
+		$('<li/>')
+			.text(alphabeticalNames[i].name)
+			.attr('value', alphabeticalNames[i].value)
+			.appendTo(alphabeticalNamesList);
+	}
+
+	$('#alphabeticalList').replaceWith(alphabeticalNamesList);
 }
 
 generateLists();
