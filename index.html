@@ -19,7 +19,7 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: #f3f3eb;
     text-align: center;
 }
 
@@ -57,7 +57,7 @@ ol#items li {
     cursor: move;
     cursor: grab;
     background-color: #fff;
-    min-width: 470px;
+    min-width: 480px;
     white-space: nowrap;
 }
 
@@ -90,7 +90,7 @@ ol#items li {
 
 input {
     width: 270px;
-    margin-left: 40px;
+    margin-left: 30px;
     float: right;
 }
 
@@ -155,7 +155,19 @@ p {
 
 var questionMarkIndex = window.location.href.indexOf('?');
 
-if (questionMarkIndex < 0) {
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var rawNamesString = getParameterByName('names');
+
+if (questionMarkIndex < 0 || !rawNamesString) {
 	$('#content').html(
         '<h1>Hobart City Council Election 2018</h1>'+
         '<div class="links">'+
@@ -167,9 +179,9 @@ if (questionMarkIndex < 0) {
         '</div>'
 	);
 
-} else if (window.location.href.length == window.location.href.indexOf('?') + 1) {
+} else if (false) {
     $('#content').html(
-		'<h3><a href="https://voteplan.github.io/?BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Click here for an example list</a></h3>'+
+		'<h3><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Click here for an example list</a></h3>'+
 		'<h3>Step 1</h3>'+
         '<p>Put names in the text area below, each name on its own line.</p>'+
 		'<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a ! (exclamation mark) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor!LASTNAME, Firstname</span></p>'+
@@ -180,7 +192,7 @@ if (questionMarkIndex < 0) {
     );
     $('#names-textarea').on('change keyup paste', function() {
         $('#url').text(
-			'https://voteplan.github.io/?'+
+			'https://voteplan.github.io/?names='+
 			this.value
 			.trim()
 			.replace(/ {2,}/g, ' ')
@@ -194,7 +206,6 @@ if (questionMarkIndex < 0) {
 } else {
     $('#content').html(
         '<div class="instructions">'+
-        '    <h3>Instructions:</h3>'+
         '    <ul class="instructions-list">'+
         '        <li>Drag names to order them.</li>'+
         '        <li>Click names to toggle tick.</li>'+
@@ -205,9 +216,10 @@ if (questionMarkIndex < 0) {
         '<ol id="items"></ol>'
     )
 
-	var rawNames = window.location.href.slice(questionMarkIndex + 1).replace(/\+/g, ' ').split(';');
 	var names = [];
 	var subsets = {};
+	
+	var rawNames = rawNamesString.split(';');
 
 	$.each(rawNames, function(i) {
 		var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
@@ -278,6 +290,34 @@ if (questionMarkIndex < 0) {
 
 	function generateLists() {
 		var subsetDiv = $('<div/>').attr('id', 'subsetDiv');
+		
+		$('<h3/>')
+			.text('In alphabetical order')
+			.appendTo(subsetDiv);
+
+		var alphabeticalNamesList = $('<ol/>').addClass('subsetList');
+		
+		var alphabeticalNames = [];
+		
+		$('ol#items li').each(function(i) {
+			alphabeticalNames.push({
+				"name": $(this).text(),
+				"value": i + 1
+			})				
+		});
+		
+		alphabeticalNames.sort(function (a, b) {
+			return a.name.localeCompare(b.name);
+		});
+		
+		for (var i = 0; i < alphabeticalNames.length; i++) {
+			$('<li/>')
+				.text(alphabeticalNames[i].name)
+				.attr('value', alphabeticalNames[i].value)
+				.appendTo(alphabeticalNamesList);
+		}
+		
+		alphabeticalNamesList.appendTo(subsetDiv);		
 
 		for (key in subsets) {
 			if (subsets.hasOwnProperty(key)) {
