@@ -166,7 +166,7 @@ function getParameterByName(name, url) {
 }
 
 var rawNamesString = getParameterByName('names');
-var edit = window.location.hash == '#edit'
+var edit = getParameterByName('edit') == 'true';
 
 if ((questionMarkIndex < 0 || !rawNamesString) && !edit) {
 	$('#content').html(
@@ -178,6 +178,7 @@ if ((questionMarkIndex < 0 || !rawNamesString) && !edit) {
         '        <li><a href="hobart-city-council-2018-deputy-lord-mayor">Deputy Lord Mayor</a></li>'+
 		'	</ul>'+
         '</div>'+
+		'<p><a href="https://voteplan.github.io/?edit=true">Make your own list</a></p>'+
 		'<p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'
 	);
 
