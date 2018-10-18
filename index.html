@@ -166,8 +166,9 @@ function getParameterByName(name, url) {
 }
 
 var rawNamesString = getParameterByName('names');
+var edit = window.location.hash == '#edit'
 
-if (questionMarkIndex < 0 || !rawNamesString) {
+if ((questionMarkIndex < 0 || !rawNamesString) && !edit) {
 	$('#content').html(
         '<h1>Hobart City Council Election 2018</h1>'+
         '<div class="links">'+
@@ -176,11 +177,14 @@ if (questionMarkIndex < 0 || !rawNamesString) {
         '        <li><a href="hobart-city-council-2018-lord-mayor">Lord Mayor</a></li>'+
         '        <li><a href="hobart-city-council-2018-deputy-lord-mayor">Deputy Lord Mayor</a></li>'+
 		'	</ul>'+
-        '</div>'
+        '</div>'+
+		'<p><a href="https://voteplan.github.io/#edit">Make your own list</a></p>'+
+		'<p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'
 	);
 
-} else if (false) {
+} else if (edit) {
     $('#content').html(
+		'<p>Please note that this is still being developed. If problems arise, please send an email to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
 		'<h3><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Click here for an example list</a></h3>'+
 		'<h3>Step 1</h3>'+
         '<p>Put names in the text area below, each name on its own line.</p>'+
