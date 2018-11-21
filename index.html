@@ -13,140 +13,14 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
 
         <style>
+        
 * {
     font-family: 'Open Sans', sans-serif;
-    color: #111;
+    color: hsl(28, 18%, 10%);
 }
 
-body {
-    background-color: #f3f3eb;
-    text-align: center;
-}
-
-h1 {
-    margin-top: 20px;
-    margin-bottom: 0;
-    margin-left: 40px;
-    font-size: 19px;
-}
-
-h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 40px;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-h3 {
-    margin: 0;
-	margin-top: 20px;
-}
-
-ol#items {
-    display: inline-block;
-    margin-bottom: 30px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-ol#items li {
-    text-align: left;
-    padding: 4px 8px;
-    border: 1px solid #bbb;
-    cursor: move;
-    cursor: grab;
-    background-color: #fff;
-    min-width: 480px;
-    white-space: nowrap;
-}
-
-.toggle {
-    background-color: #ddd !important;;
-}
-
-.toggle-span:before {
-    content: "✔ ";
-}
-
-.ghost {
-    background-color: #888 !important;
-    position: relative;
-}
-
-.hovering {
-    background-color: #bbb !important;
-}
-
-.instructions {
-    width: 400px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.instructions-list {
-    margin-top: 10px;
-}
-
-input {
-    width: 270px;
-    margin-left: 30px;
-    float: right;
-}
-
-#url {
-	display: inline-block;
-	background-color: #fff;
-	user-select: all;
-	margin: 0;
-	word-break: break-all;
-	width: 500px;
-	border: 1px solid #bbb;
-}
-
-#names-textarea {
-	font-size: 16px;
-}
-
-.links {
-    width: 400px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.link-list {
-	margin-top: 10px;
-}
-
-ol.subsetList li {
-    text-align: left;
-    width: 470px;
-}
-
-ol.subsetList {
-    display: inline-block;
-}
-
-#subsetDiv {
-	margin-bottom: 30px;
-}
-
-h3#subsetDiv {
-	margin: 0 !important;
-}
-
-.exampleSpan {
-	background-color: #fff;
-}
-
-p {
-	max-width: 800px;
-	margin: 20px auto;
-}
-
-* {
-    font-family: 'Open Sans', sans-serif;
-    color: #111;
+a {
+    color: hsl(219, 100%, 35%);
 }
 
 body {
@@ -154,44 +28,79 @@ body {
     text-align: center;
 }
 
-h1 {
-	margin: 10px 20px;
-    font-size: 19px;
+.heading {
+    background-color: hsl(28, 10%, 82%);
+    display: table;
+    margin: 20px auto;
+    padding: 5px 20px;
+    border-radius: 10px;
+	font-size: 25px;
 }
 
-h2 {
-	margin: 10px 20px;
-    font-size: 24px;
-    margin-bottom: 10px;
+.exampleListLink {
+	font-size: 25px;
+	margin-bottom: 50px;
 }
 
-h3 {
-	margin: 0;
+.exampleSpan {
+    background-color: #fff;
+    padding: 0 4px;
+}
+
+#namesTextarea {
+    border: 1px solid hsl(28, 18%, 70%);
+}
+
+#url {
+    display: inline-block;
+    background-color: #fff;
+    user-select: all;
+    margin: 0;
+    word-break: break-all;
+    width: 500px;
+    border: 1px solid hsl(28, 18%, 70%);
+}
+
+.instructions {
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.instructionsList li {
+    margin: 15px 0;
 }
 
 ol#items {
     display: inline-block;
-    margin-bottom: 10px;
     margin-right: auto;
     margin-left: auto;
+	margin-bottom: 0;
 }
 
 ol#items li {
     text-align: left;
     padding: 4px 8px;
-    border: 1px solid hsl(28, 10%, 82%);
+    border: 1px solid hsl(28, 18%, 70%);
     cursor: move;
     cursor: grab;
     background-color: #fff;
-    width: 500px;
-	white-space: nowrap;
+    min-width: 480px;
+    white-space: nowrap;
+}
+
+.notes {
+    width: 270px;
+    margin-left: 10px;
+    float: right;
+    border: 1px solid hsl(28, 18%, 70%);
 }
 
 .toggle {
     background-color: hsl(28, 10%, 75%) !important;
 }
 
-.toggle-span:before {
+.toggleSpan:before {
     content: "✔ ";
 }
 
@@ -204,39 +113,7 @@ ol#items li {
     background-color: hsl(28, 10%, 82%) !important;
 }
 
-.instructions {
-    width: 500px;
-    margin: 0 auto;
-    text-align: left;
-	margin-top: 20px;
-}
-
-.instructions-list {
-	margin-top: 10px;
-}
-
-.instructions-list li {
-	margin: 15px 0;
-}
-
-input {
-    width: 270px;
-    margin-left: 10px;
-    float: right;
-    border: 1px solid hsl(28, 10%, 70%);
-}
-
-ol#subsetList li {
-    text-align: left;
-    width: 500px;
-}
-
-
-ol#subsetList {
-    display: inline-block;
-}
-
-.listDiv {
+.listContainerDiv {
 	margin: 15px auto;
 	width: 500px;
 	background-color: #fff;
@@ -244,16 +121,14 @@ ol#subsetList {
 	border: 1px solid hsl(28, 10%, 82%);
 }
 
-.listContainerDiv {
-	padding: 20px;
+.listDiv ol {
+	text-align: left;
 }
 
-#headingDiv {
-    background-color: hsl(28, 10%, 82%);
-	display: table;
-	margin: 0 auto;
-	margin-top: 20px;
-	border-radius: 10px;
+
+
+#url {
+	margin-bottom: 10px;
 }
         </style>
 
@@ -265,82 +140,116 @@ ol#subsetList {
 
         <script>
 
-var questionMarkIndex = window.location.href.indexOf('?');
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
+function getParameterByName(name) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp("[?&]" + name + '(=([^&#]*)|&|#|$)');
+    var results = regex.exec(window.location.href);
     if (!results) return null;
     if (!results[2]) return '';
     return results[2].replace(/\+/g, ' ');
 }
 
 var rawNamesString = getParameterByName('names');
-var edit = getParameterByName('edit') == 'true';
 
 if (!rawNamesString) {
     $('#content').html(
-		'<div id="headingDiv">'+
-		'<h2 id="subheading">VotePlan</h2>'+
-		'</div>'+
-		'<p>Please note that this is still being developed. If problems arise, please send an email to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
-		'<h3><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Click here for an example list</a></h3>'+
-		'<br>'+
-		'<h3>Step 1</h3>'+
+        '<h1 class="heading">VotePlan</h1>'+
+        '<p>VotePlan is a tool for planning the order of candidates before you vote.</p>'+
+        '<p class="exampleListLink"><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Example list</a></p>'+		
+        '<h1 class="heading">Create your own list</h1>'+
+        '<h2>Step 1</h2>'+
         '<p>Put names in the text area below, each name on its own line.</p>'+
-		'<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a ! (exclamation mark) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor!LASTNAME, Firstname</span></p>'+
-		'<textarea id="names-textarea" rows=20 cols=40 oninput=\'this.style.height = "";this.style.height = this.scrollHeight + "px"\'></textarea>'+
-		'<h3>Step 2</h3>'+
-		'<p>Copy and share the URL below. You may want to use a URL shortener.</p>'+
+        '<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a ! (exclamation mark) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor!LASTNAME, Firstname</span></p>'+
+        '<textarea id="namesTextarea" rows=20 cols=40 oninput=\'this.style.height = "";this.style.height = this.scrollHeight + "px"\'></textarea>'+
+        '<h2>Step 2</h2>'+
+        '<p>Copy and share the URL below. You may want to use a URL shortener.</p>'+
         '<p id="url">https://voteplan.github.io/?</p>'
     );
-    $('#names-textarea').on('change keyup paste', function() {
+    $('#namesTextarea').on('change keyup paste', function() {
         $('#url').text(
-			'https://voteplan.github.io/?names='+
-			this.value
-			.trim()
-			.replace(/ {2,}/g, ' ')
-			.replace(/\n{2,}/g, '\n')
-			.replace(/<>;/g, '')
-			.replace(/\n/g, ';')
-			.replace(/ /g, '+')
-		);
+            'https://voteplan.github.io/?names='+
+            this.value
+            .trim()
+            .replace(/ {2,}/g, ' ')
+            .replace(/\n{2,}/g, '\n')
+            .replace(/<>;/g, '')
+            .replace(/\n/g, ';')
+            .replace(/ /g, '+')
+        );
     });
 
 } else {
+    var names = [];
+    var subsets = {};
+	var sortedSubsets = [];
+	
+    var rawNames = rawNamesString.split(';');
+
+    $.each(rawNames, function(i) {
+        var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
+        var name = matches.pop().trim();
+
+        for (var i = 0; i < matches.length; i++) {
+            var subsetName = matches[i].trim();
+            (subsets[subsetName] = subsets[subsetName] || []).push(name);
+        }
+
+        names.push(name);
+    });	
+	
+    for (key in subsets) {
+        if (subsets.hasOwnProperty(key)) {
+			sortedSubsets.push({
+				"name": key,
+				"items": subsets[key]
+			})
+		}
+	}
+	
+	sortedSubsets.sort(function (a, b) {
+		return a.name.localeCompare(b.name);
+	});	
+	
+	
+	var sortedSubsetNames = [];
+	
+	for (var i = 0; i < sortedSubsets.length; i++) {
+		sortedSubsetNames.push(sortedSubsets[i].name);
+	}
+	
+	function formatList(a) {
+		var formatted;
+		if (a.length == 1) {
+			formatted = a[0].name;
+			return 'A list underneath for '+formatted+' will automatically change to be in the same order as your preferences above.'
+		} else {
+			if (a.length == 2) {
+				formatted = a.join(' and ');
+			} else {
+				formatted = a.slice(0, -1).join(', ') + ' and ' + a.slice(-1);
+			}
+			return 'Lists underneath for '+formatted+' will automatically change to be in the same order as your preferences above.'
+		}
+	}
+	
     $('#content').html(
-		'<div id="headingDiv">'+
-		'<h2 id="subheading">VotePlan</h2>'+
-		'</div>'+
+        '<h1 class="heading">VotePlan</h1>'+
         '<div class="instructions">'+
-        '    <ul class="instructions-list">'+
-        '        <li>Drag names to order them.</li>'+
-        '        <li>Click names to toggle tick.</li>'+
-        '        <li>Use the text boxes to add notes.</li>'+
+        '    <p>VotePlan is a tool for planning the order of candidates before you vote.</p>'+
+        '    <ul class="instructionsList">'+
+        '        <li>Drag names to order them (they start in alphabetical order).</li>'+
+        '        <li>You can use the text boxes to add notes.</li>'+
+        '        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>'+
+        '        <li>'+formatList(sortedSubsetNames)+'</li>'+
+        '        <li>Additional lists underneath have the candidates in alphabetical order but with the same numbers as above to make finding candidate names on this page faster when you transfer numbers to your ballot paper.</li>'+
         '    </ul>'+
         '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
         '</div>'+
-        '<ol id="items"></ol>'
+        '<ol id="items"></ol>'+
+		'<div id="allListsDiv"></div>'
     )
-
-	var names = [];
-	var subsets = {};
 	
-	var rawNames = rawNamesString.split(';');
-
-	$.each(rawNames, function(i) {
-		var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
-		var name = matches.pop().trim();
-
-		for (var i = 0; i < matches.length; i++) {
-			var subsetName = matches[i].trim();
-			(subsets[subsetName] = subsets[subsetName] || []).push(name);
-		}
-
-		names.push(name);
-	});
+	names.sort();
 
     var items = $('#items')
     $.each(names, function(i) {
@@ -358,12 +267,13 @@ if (!rawNamesString) {
 
     var canHover = true;
 
-	var el = document.getElementById('items');
+    var el = document.getElementById('items');
+	
     var sortable = Sortable.create(el, {
         ghostClass: 'ghost',
         onEnd: function (evt) {
             canHover = true;
-			generateLists();
+            generateLists();
         },
         onChoose: function (evt) {
             canHover = false;
@@ -374,7 +284,7 @@ if (!rawNamesString) {
     $('ol#items li').on('click', function(e){
         if (!$(e.target).hasClass('notes')) {
             $(this).toggleClass('toggle');
-            $(this).children('span').first().toggleClass('toggle-span');
+            $(this).children('span').first().toggleClass('toggleSpan');
         }
         canHover = true;
     });
@@ -395,62 +305,93 @@ if (!rawNamesString) {
         canHover = true;
     });
 
-	$('<div/>').attr('id', 'subsetDiv').appendTo('#content');
+    function generateLists() {	
+        var allListsDiv = $('<div/>').attr('id', 'allListsDiv');		
+		
+        for (key in subsets) {
+            if (subsets.hasOwnProperty(key)) {
+			
+				var listContainerDiv = $('<div/>').addClass('listContainerDiv')
+				var listDiv = $('<div/>').addClass('listDiv').appendTo(listContainerDiv);
 
-	function generateLists() {
-		var subsetDiv = $('<div/>').attr('id', 'subsetDiv');
-		
-		$('<h3/>')
-			.text('In alphabetical order')
-			.appendTo(subsetDiv);
+                $('<h3/>')
+                    .html(key+'<br> (in the order above)')
+                    .appendTo(listDiv);
+					
+                var listOl = $('<ol/>').addClass('listOl').attr('id', 'subset-'+key.replace(' ', '-'));
 
-		var alphabeticalNamesList = $('<ol/>').addClass('subsetList');
+                $('ol#items li').each(function() {
+                    if (subsets[key].includes($(this).text())) {
+                        $('<li/>')
+                            .text($(this).text())
+                            .appendTo(listOl);
+                    }
+                });
+				
+                listOl.appendTo(listDiv);
+            }
 		
-		var alphabeticalNames = [];
+			listContainerDiv.appendTo(allListsDiv);
+        }
 		
-		$('ol#items li').each(function(i) {
-			alphabeticalNames.push({
-				"name": $(this).text(),
-				"value": i + 1
-			})				
-		});
-		
-		alphabeticalNames.sort(function (a, b) {
-			return a.name.localeCompare(b.name);
-		});
-		
-		for (var i = 0; i < alphabeticalNames.length; i++) {
-			$('<li/>')
-				.text(alphabeticalNames[i].name)
-				.attr('value', alphabeticalNames[i].value)
-				.appendTo(alphabeticalNamesList);
-		}
-		
-		alphabeticalNamesList.appendTo(subsetDiv);		
-
-		for (key in subsets) {
-			if (subsets.hasOwnProperty(key)) {
-				$('<h3/>')
-					.text(key+' (in the order above)')
-					.appendTo(subsetDiv);
-				var subsetList = $('<ol/>').addClass('subsetList');
-
-				$('ol#items li').each(function() {
-					if (subsets[key].includes($(this).text())) {
-						$('<li/>')
-							.text($(this).text())
-							.appendTo(subsetList);
-					}
-				});
-				subsetList.appendTo(subsetDiv);
+		function generateAlphabeticalList(key) {			
+			var heading = 'In alphabetical order with numbers as above';
+			
+			if (key) {
+				heading = key+'<br> (in alphabetical order with numbers as above)';
 			}
+			
+			var listContainerDiv = $('<div/>').addClass('listContainerDiv')
+			var listDiv = $('<div/>').addClass('listDiv').appendTo(listContainerDiv);
+		
+			$('<h3/>')
+				.html(heading)
+				.appendTo(listDiv);
+
+			var listOl = $('<ol/>').addClass('listOl');
+			
+			var alphabeticalNames = [];
+			
+			var i = 1
+			
+			$('ol#items li').each(function() {
+				if (!key || subsets[key].includes($(this).text())) {
+					alphabeticalNames.push({
+						"name": $(this).text(),
+						"value": i
+					});				
+					i += 1;
+				}
+			});
+			
+			alphabeticalNames.sort(function (a, b) {
+				return a.name.localeCompare(b.name);
+			});
+			
+			for (var i = 0; i < alphabeticalNames.length; i++) {
+				$('<li/>')
+					.text(alphabeticalNames[i].name)
+					.attr('value', alphabeticalNames[i].value)
+					.appendTo(listOl);
+			}
+			
+			listOl.appendTo(listDiv);
+			
+			listContainerDiv.appendTo(allListsDiv);
 		}
-		subsetDiv.appendTo('#content')
 
-		$('#subsetDiv').replaceWith(subsetDiv);
-	}
+		generateAlphabeticalList()
+		
+        for (key in subsets) {
+            if (subsets.hasOwnProperty(key)) {
+                generateAlphabeticalList(key);
+            }
+        }		
 
-	generateLists();
+        $('#allListsDiv').replaceWith(allListsDiv);		
+    }
+	
+    generateLists();
 }
         </script>
         <body>
