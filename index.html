@@ -219,16 +219,18 @@ if (!rawNamesString) {
 	
 	function formatList(a) {
 		var formatted;
-		if (a.length == 1) {
+		if (a.length == 0) {
+			return ''
+		} else if (a.length == 1) {
 			formatted = a[0].name;
-			return 'A list underneath for '+formatted+' will automatically change to be in the same order as your preferences above.'
+			return '<li>A list underneath for '+formatted+' will automatically change to be in the same order as your preferences above.</li>'
 		} else {
 			if (a.length == 2) {
 				formatted = a.join(' and ');
 			} else {
 				formatted = a.slice(0, -1).join(', ') + ' and ' + a.slice(-1);
 			}
-			return 'Lists underneath for '+formatted+' will automatically change to be in the same order as your preferences above.'
+			return '<li>Lists underneath for '+formatted+' will automatically change to be in the same order as your preferences above.</li>'
 		}
 	}
 	
@@ -240,7 +242,7 @@ if (!rawNamesString) {
         '        <li>Drag names to order them (they start in alphabetical order).</li>'+
         '        <li>You can use the text boxes to add notes.</li>'+
         '        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>'+
-        '        <li>'+formatList(sortedSubsetNames)+'</li>'+
+        '        '+formatList(sortedSubsetNames)+
         '        <li>Additional lists underneath have the candidates in alphabetical order but with the same numbers as above to make finding candidate names on this page faster when you transfer numbers to your ballot paper.</li>'+
         '    </ul>'+
         '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
