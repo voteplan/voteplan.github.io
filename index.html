@@ -233,6 +233,14 @@ if (!rawNamesString) {
 			return '<li>Lists underneath for '+formatted+' will automatically change to be in the same order as your preferences above.</li>'
 		}
 	}
+
+	function additionalLists(a) {
+		var start = 'Additional lists underneath have';
+		if (a.length == 0) {
+			start = 'An additional list underneath has';
+		}
+		return '<li>'+start+' the candidates in alphabetical order but with the same numbers as above, to help you find candidate names on this page faster when you transfer numbers to your ballot paper.</li>'
+	}
 	
     $('#content').html(
         '<h1 class="heading">VotePlan</h1>'+
@@ -243,7 +251,7 @@ if (!rawNamesString) {
         '        <li>You can use the text boxes to add notes.</li>'+
         '        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>'+
         '        '+formatList(sortedSubsetNames)+
-        '        <li>Additional lists underneath have the candidates in alphabetical order but with the same numbers as above to make finding candidate names on this page faster when you transfer numbers to your ballot paper.</li>'+
+        '        '+additionalLists(sortedSubsetNames)+
         '    </ul>'+
         '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>'+
         '</div>'+
