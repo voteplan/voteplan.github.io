@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:600"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:500,700"
       rel="stylesheet"
     />
 
@@ -86,6 +86,7 @@
         text-align: left;
         padding: 4px 8px;
         border: 1px solid hsl(28, 18%, 70%);
+        margin-bottom: -1px;
         cursor: move;
         cursor: grab;
         background-color: #fff;
@@ -102,16 +103,16 @@
       }
 
       .toggle {
-        background-color: hsl(28, 10%, 75%) !important;
+        //background-color: hsl(28, 10%, 95%) !important;
       }
 
-      .toggleSpan:before {
-        content: "✔ ";
+      .toggle:after {
+        content: " ✔ ";
+        float: right;
       }
 
       .ghost {
-        background-color: hsl(28, 7%, 60%) !important;
-        position: relative;
+        background-color: hsl(28, 7%, 85%) !important;
       }
 
       .hovering {
@@ -122,7 +123,6 @@
         margin: 15px auto;
         width: 500px;
         background-color: #fff;
-        border-radius: 10px;
         border: 1px solid hsl(28, 10%, 82%);
       }
 
@@ -132,6 +132,10 @@
 
       #url {
         margin-bottom: 10px;
+      }
+      
+      .hide {
+        display: none;
       }
     </style>
 
@@ -179,7 +183,9 @@
                 .replace(/ /g, "+")
           );
         });
-      } else {
+      }
+      else
+      {
         var names = [];
         var subsets = {};
         var sortedSubsets = [];
@@ -250,7 +256,7 @@
           return (
             "<li>" +
             start +
-            " the candidates in alphabetical order but with the same numbers as above, to help you locate names faster.</li>"
+            " the candidates in alphabetical order, to help you locate names faster.</li>"
           );
         }
 
@@ -260,8 +266,9 @@
             "    <p>VotePlan is a tool for planning the order of candidates before you vote.</p>" +
             '    <ul class="instructionsList">' +
             "        <li>Drag names to order them (they start in alphabetical order).</li>" +
+            "        <li>When a name is dragged a tick will appear beside it to let you see which names you have and haven't ordered.</li>" +
             "        <li>You can use the text boxes to add notes.</li>" +
-            "        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>" +
+            //"        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>" +
             "        " +
             formatList(sortedSubsetNames) +
             "        " +
@@ -291,6 +298,8 @@
 
         var sortable = Sortable.create(el, {
           ghostClass: "ghost",
+          direction: 'horizontal',
+          animation: 150,
           onEnd: function (evt) {
             canHover = true;
             generateLists();
@@ -299,8 +308,12 @@
             canHover = false;
             $("ol#items li").removeClass("hovering");
           },
+            onMove: function (evt, originalEvent) {
+                evt.dragged.classList.add("toggle");
+            },
         });
 
+        /*
         $("ol#items li").on("click", function (e) {
           if (!$(e.target).hasClass("notes")) {
             $(this).toggleClass("toggle");
@@ -308,6 +321,7 @@
           }
           canHover = true;
         });
+        */
 
         $(".notes").focus(function () {
           canHover = true;
@@ -329,40 +343,14 @@
 
         function generateLists() {
           var allListsDiv = $("<div/>").attr("id", "allListsDiv");
-
-          for (key in subsets) {
-            if (subsets.hasOwnProperty(key)) {
-              var listContainerDiv = $("<div/>").addClass("listContainerDiv");
-              var listDiv = $("<div/>")
-                .addClass("listDiv")
-                .appendTo(listContainerDiv);
-
-              $("<h3/>")
-                .html(key + "<br> (in the order above)")
-                .appendTo(listDiv);
-
-              var listOl = $("<ol/>")
-                .addClass("listOl")
-                .attr("id", "subset-" + key.replace(" ", "-"));
-
-              $("ol#items li").each(function () {
-                if (subsets[key].includes($(this).text())) {
-                  $("<li/>").text($(this).text()).appendTo(listOl);
-                }
-              });
-
-              listOl.appendTo(listDiv);
-            }
-
-            listContainerDiv.appendTo(allListsDiv);
-          }
+          
 
           function generateAlphabeticalList(key) {
             var heading = "In alphabetical order with numbers as above";
 
             if (key) {
               heading =
-                key + "<br> (in alphabetical order with numbers as above)";
+                key + "<br> (in alphabetical order)";
             }
 
             var listContainerDiv = $("<div/>").addClass("listContainerDiv");
@@ -405,6 +393,35 @@
           }
 
           generateAlphabeticalList();
+
+          
+
+          for (key in subsets) {
+            if (subsets.hasOwnProperty(key)) {
+              var listContainerDiv = $("<div/>").addClass("listContainerDiv");
+              var listDiv = $("<div/>")
+                .addClass("listDiv")
+                .appendTo(listContainerDiv);
+
+              $("<h3/>")
+                .html(key + "<br> (in the order above)")
+                .appendTo(listDiv);
+
+              var listOl = $("<ol/>")
+                .addClass("listOl")
+                .attr("id", "subset-" + key.replace(" ", "-"));
+
+              $("ol#items li").each(function () {
+                if (subsets[key].includes($(this).text())) {
+                  $("<li/>").text($(this).text()).appendTo(listOl);
+                }
+              });
+
+              listOl.appendTo(listDiv);
+            }
+
+            listContainerDiv.appendTo(allListsDiv);
+          }
 
           for (key in subsets) {
             if (subsets.hasOwnProperty(key)) {
