@@ -1,61 +1,54 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
+
+<head>
     <meta name="viewport" content="width=device-width" />
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:500,700"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:500,700" rel="stylesheet" />
     <style>
-      * {
+    * {
         font-family: "Open Sans", sans-serif;
         color: hsl(28, 18%, 10%);
         font-size: 16px;
-      }
+    }
 
-      a {
+    a {
         color: hsl(219, 100%, 35%);
-      }
+    }
 
-      body {
+    body {
         background-color: hsl(28, 18%, 92%);
         text-align: center;
-      }
+    }
 
-      .heading {
+    .heading {
         background-color: hsl(28, 10%, 82%);
         display: table;
         margin: 20px auto;
         padding: 5px 20px;
         border-radius: 10px;
         font-size: 25px !important;
-      }
+    }
 
-      .exampleListLink {
+    .exampleListLink {
         margin-bottom: 50px;
-      }
-  
-      .exampleListLink a {
-        font-size: 25px !important;
-      }
+    }
 
-      .exampleSpan {
+    .exampleListLink a {
+        font-size: 25px !important;
+    }
+
+    .exampleSpan {
         background-color: #fff;
         padding: 0 4px;
-      }
+    }
 
-      #namesTextarea {
+    #namesTextarea {
         border: 1px solid hsl(28, 18%, 70%);
-      }
+    }
 
-      #url {
+    #url {
         display: inline-block;
         background-color: #fff;
         user-select: all;
@@ -63,26 +56,26 @@
         word-break: break-all;
         width: 500px;
         border: 1px solid hsl(28, 18%, 70%);
-      }
+    }
 
-      .instructions {
+    .instructions {
         width: 500px;
         margin: 0 auto;
         text-align: left;
-      }
+    }
 
-      .instructionsList li {
+    .instructionsList li {
         margin: 15px 0;
-      }
+    }
 
-      ol#items {
+    ol#items {
         display: inline-block;
         margin-right: auto;
         margin-left: auto;
         margin-bottom: 0;
-      }
+    }
 
-      ol#items li {
+    ol#items li {
         text-align: left;
         padding: 4px 8px;
         border: 1px solid hsl(28, 18%, 70%);
@@ -92,229 +85,156 @@
         background-color: #fff;
         min-width: 480px;
         white-space: nowrap;
-      }
+    }
 
-      .notes {
+    .notes {
         width: 270px;
         margin-left: 10px;
         float: right;
         border: 1px solid hsl(28, 18%, 70%);
         font-size: 90%;
-      }
+    }
 
-      .toggle {
+    .toggle {
         //background-color: hsl(28, 10%, 95%) !important;
-      }
+    }
 
-      .toggle:after {
+    .toggle:after {
         content: " ✔ ";
         float: right;
-      }
+    }
 
-      .ghost {
+    .ghost {
         background-color: hsl(28, 7%, 85%) !important;
-      }
+    }
 
-      .hovering {
+    .hovering {
         background-color: hsl(28, 10%, 82%) !important;
-      }
+    }
 
-      .listContainerDiv {
+    .listContainerDiv {
         margin: 15px auto;
         width: 500px;
         background-color: #fff;
         border: 1px solid hsl(28, 10%, 82%);
-      }
+    }
 
-      .listDiv ol {
+    .listDiv ol {
         text-align: left;
-      }
+    }
 
-      #url {
+    #url {
         margin-bottom: 10px;
-      }
-      
-      .hide {
+    }
+
+    .hide {
         display: none;
-      }
+    }
     </style>
-
     <title>VotePlan</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="content"></div>
-
     <script>
-      function getParameterByName(name) {
+    function getParameterByName(name) {
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
         var results = regex.exec(window.location.href);
         if (!results) return null;
         if (!results[2]) return "";
         return results[2].replace(/\+/g, " ");
-      }
-
-      var rawNamesString = getParameterByName("names");
-
-      if (!rawNamesString) {
-        $("#content").html(
-          '<h1 class="heading">VotePlan</h1>' +
-            "<p>VotePlan is a tool for planning the order of candidates before you vote.</p>" +
-            '<p class="exampleListLink"><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Example list</a></p>' +
-            '<h1 class="heading">Create your own list</h1>' +
-            "<h2>Step 1</h2>" +
-            "<p>Put names in the text area below, each name on its own line.</p>" +
-            '<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a ! (exclamation mark) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor!LASTNAME, Firstname</span></p>' +
-            '<textarea id="namesTextarea" rows=20 cols=40 oninput=\'this.style.height = "";this.style.height = this.scrollHeight + "px"\'></textarea>' +
-            "<h2>Step 2</h2>" +
-            "<p>Copy and share the URL below. You may want to use a URL shortener.</p>" +
-            '<p id="url">https://voteplan.github.io/?</p>'
-        );
-        $("#namesTextarea").on("change keyup paste", function () {
-          $("#url").text(
-            "https://voteplan.github.io/?names=" +
-              this.value
-                .trim()
-                .replace(/ {2,}/g, " ")
-                .replace(/\n{2,}/g, "\n")
-                .replace(/<>;/g, "")
-                .replace(/\n/g, ";")
-                .replace(/ /g, "+")
-          );
+    }
+    var rawNamesString = getParameterByName("names");
+    if (!rawNamesString) {
+        $("#content").html('<h1 class="heading">VotePlan</h1>' + "<p>VotePlan is a tool for planning the order of candidates before you vote.</p>" + '<p class="exampleListLink"><a href="https://voteplan.github.io/?names=BLAKE,+Ann;BOWEN,+Mathew;BRADY,+Thane;Deputy+Mayor!COOPER,+Leon;COX,+Jim;DAKING,+Nick;Deputy+Mayor!DAWKINS,+Andrea;Mayor!FINLAY,+Janie;Mayor!FITCH,+Basil;Deputy+Mayor!GIBSON,+Danny;GROAT,+Daniel;Mayor!HARRIS,+Alan;LIMB,+Ryan;McKENDRICK,+Robin;Deputy+Mayor!McKENZIE,+Hugh;MADDEN,+Gary;POTTER,+Bruce;PREECE,+Krista;ROE,+Brian;Mayor!SALT,+Bob;SANDS,+Ted;Mayor!SHERRIN,+Joshua;Deputy+Mayor!SOWARD,+Rob;SPENCER,+Paul;SPRINGER,+Damien;Deputy+Mayor!STOJANSEK,+Karina;Mayor!SWEENEY,+Tegan;TAPSELL,+Mark;Mayor!VAN+ZETTEN,+Albert;Mayor!WALKER,+Tim;Deputy+Mayor!WILLIAMS,+Emma;Deputy+Mayor!WOOD,+Simon">Example list</a></p>' + '<h1 class="heading">Create your own list</h1>' + "<h2>Step 1</h2>" + "<p>Put names in the text area below, each name on its own line.</p>" + '<p>To add a name to a subset (like the "Mayor" and "Deputy Mayor" subsets in the example)<br>put the subset name and a ! (exclamation mark) before the name.<br>Example: <span class="exampleSpan">Deputy Mayor!LASTNAME, Firstname</span></p>' + '<textarea id="namesTextarea" rows=20 cols=40 oninput=\'this.style.height = "";this.style.height = this.scrollHeight + "px"\'></textarea>' + "<h2>Step 2</h2>" + "<p>Copy and share the URL below. You may want to use a URL shortener.</p>" + '<p id="url">https://voteplan.github.io/?</p>');
+        $("#namesTextarea").on("change keyup paste", function() {
+            $("#url").text("https://voteplan.github.io/?names=" + this.value.trim().replace(/ {2,}/g, " ").replace(/\n{2,}/g, "\n").replace(/<>;/g, "").replace(/\n/g, ";").replace(/ /g, "+"));
         });
-      }
-      else
-      {
+    } else {
         var names = [];
         var subsets = {};
         var sortedSubsets = [];
-
         var rawNames = rawNamesString.split(";");
-
-        $.each(rawNames, function (i) {
-          var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
-          var name = matches.pop().trim();
-
-          for (var i = 0; i < matches.length; i++) {
-            var subsetName = matches[i].trim();
-            (subsets[subsetName] = subsets[subsetName] || []).push(name);
-          }
-
-          names.push(name);
+        var changed = false;
+        $.each(rawNames, function(i) {
+            var matches = rawNames[i].match(/([^\\!]+)([^\\!]+)/g);
+            var name = matches.pop().trim();
+            for (var i = 0; i < matches.length; i++) {
+                var subsetName = matches[i].trim();
+                (subsets[subsetName] = subsets[subsetName] || []).push(name);
+            }
+            names.push(name);
         });
-
         for (key in subsets) {
-          if (subsets.hasOwnProperty(key)) {
-            sortedSubsets.push({
-              name: key,
-              items: subsets[key],
-            });
-          }
+            if (subsets.hasOwnProperty(key)) {
+                sortedSubsets.push({
+                    name: key,
+                    items: subsets[key],
+                });
+            }
         }
-
-        sortedSubsets.sort(function (a, b) {
-          return a.name.localeCompare(b.name);
+        sortedSubsets.sort(function(a, b) {
+            return a.name.localeCompare(b.name);
         });
-
         var sortedSubsetNames = [];
-
         for (var i = 0; i < sortedSubsets.length; i++) {
-          sortedSubsetNames.push(sortedSubsets[i].name);
+            sortedSubsetNames.push(sortedSubsets[i].name);
         }
 
         function formatList(a) {
-          var formatted;
-          if (a.length == 0) {
-            return "";
-          } else if (a.length == 1) {
-            formatted = a[0];
-            return (
-              "<li>A list underneath for " +
-              formatted +
-              " will automatically change to be in the same order as your preferences above.</li>"
-            );
-          } else {
-            if (a.length == 2) {
-              formatted = a.join(" and ");
+            var formatted;
+            if (a.length == 0) {
+                return "";
+            } else if (a.length == 1) {
+                formatted = a[0];
+                return ("<li>A list underneath for " + formatted + " will automatically change to be in the same order as your preferences above.</li>");
             } else {
-              formatted = a.slice(0, -1).join(", ") + " and " + a.slice(-1);
+                if (a.length == 2) {
+                    formatted = a.join(" and ");
+                } else {
+                    formatted = a.slice(0, -1).join(", ") + " and " + a.slice(-1);
+                }
+                return ("<li>Lists underneath for " + formatted + " will automatically change to be in the same order as your preferences above.</li>");
             }
-            return (
-              "<li>Lists underneath for " +
-              formatted +
-              " will automatically change to be in the same order as your preferences above.</li>"
-            );
-          }
         }
 
         function additionalLists(a) {
-          var start = "Additional lists underneath have";
-          if (a.length == 0) {
-            start = "An additional list underneath has";
-          }
-          return (
-            "<li>" +
-            start +
-            " the candidates in alphabetical order, to help you locate names faster.</li>"
-          );
+            var start = "Additional lists underneath have";
+            if (a.length == 0) {
+                start = "An additional list underneath has";
+            }
+            return ("<li>" + start + " the candidates in alphabetical order, to help you locate names faster.</li>");
         }
-
-        $("#content").html(
-          '<h1 class="heading">VotePlan</h1>' +
-            '<div class="instructions">' +
-            "    <p>VotePlan is a tool for planning the order of candidates before you vote.</p>" +
-            '    <ul class="instructionsList">' +
-            "        <li>Drag names to order them (they start in alphabetical order).</li>" +
-            "        <li>When a name is dragged a tick will appear beside it to let you see which names you have and haven't ordered.</li>" +
-            "        <li>You can use the text boxes to add notes.</li>" +
+        $("#content").html('<h1 class="heading">VotePlan</h1>' + '<div class="instructions">' + "    <p>VotePlan is a tool for planning the order of candidates before you vote.</p>" + '    <ul class="instructionsList">' + "        <li>Drag names to order them (they start in alphabetical order).</li>" + "        <li>When a name is dragged a tick will appear beside it to let you see which names you have and haven't ordered.</li>" + "        <li>You can use the text boxes to add notes.</li>" +
             //"        <li>You can click names to toggle a tick to remind yourself who you have ordered and who you have yet to order.</li>" +
-            "        " +
-            formatList(sortedSubsetNames) +
-            "        " +
-            additionalLists(sortedSubsetNames) +
-            "        <li>Your ordering and notes will be lost if the page is closed or refreshed.</li>" +
-            "        <li>VotePlan doesn't work well on mobile, sorry!</li>" +
-            "    </ul>" +
-            '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>' +
-            "</div>" +
-            '<ol id="items"></ol>' +
-            '<div id="allListsDiv"></div>'
-        );
-
+            "        " + formatList(sortedSubsetNames) + "        " + additionalLists(sortedSubsetNames) + "        <li>Your ordering and notes will be lost if the page is closed or refreshed.</li>" + "        <li>VotePlan doesn't work well on mobile, sorry!</li>" + "    </ul>" + '    <p>Send feedback to <a href="mailto:programming4politics@protonmail.com">programming4politics@protonmail.com</a></p>' + "</div>" + '<ol id="items"></ol>' + '<div id="allListsDiv"></div>');
         names.sort();
-
         var items = $("#items");
-        $.each(names, function (i) {
-          var li = $("<li/>").appendTo(items);
-          var input = $("<input/>")
-            .addClass("notes")
-            .attr("placeholder", "Notes")
-            .appendTo(li);
-          var span = $("<span/>").addClass("name").text(names[i]).appendTo(li);
+        $.each(names, function(i) {
+            var li = $("<li/>").appendTo(items);
+            var input = $("<input/>").addClass("notes").attr("placeholder", "Notes").appendTo(li);
+            var span = $("<span/>").addClass("name").text(names[i]).appendTo(li);
         });
-
         var canHover = true;
-
         var el = document.getElementById("items");
-
         var sortable = Sortable.create(el, {
-          ghostClass: "ghost",
-          direction: 'horizontal',
-          animation: 150,
-          onEnd: function (evt) {
-            canHover = true;
-            generateLists();
-          },
-          onChoose: function (evt) {
-            canHover = false;
-            $("ol#items li").removeClass("hovering");
-          },
-            onMove: function (evt, originalEvent) {
+            ghostClass: "ghost",
+            direction: 'horizontal',
+            animation: 150,
+            onEnd: function(evt) {
+                canHover = true;
+                generateLists();
+                changed = true;
+            },
+            onChoose: function(evt) {
+                canHover = false;
+                $("ol#items li").removeClass("hovering");
+            },
+            onMove: function(evt, originalEvent) {
                 evt.dragged.classList.add("toggle");
             },
         });
-
         /*
         $("ol#items li").on("click", function (e) {
           if (!$(e.target).hasClass("notes")) {
@@ -324,118 +244,84 @@
           canHover = true;
         });
         */
-
-        $(".notes").focus(function () {
-          canHover = true;
+        $(".notes").focus(function() {
+            canHover = true;
         });
-
-        $("ol#items li")
-          .bind("mouseenter", function () {
+        $("ol#items li").bind("mouseenter", function() {
             if (canHover) {
-              $(this).addClass("hovering");
+                $(this).addClass("hovering");
             }
-          })
-          .bind("mouseleave", function () {
+        }).bind("mouseleave", function() {
             $(this).removeClass("hovering");
-          });
-
-        document.documentElement.addEventListener("mouseup", function (e) {
-          canHover = true;
+        });
+        document.documentElement.addEventListener("mouseup", function(e) {
+            canHover = true;
         });
 
         function generateLists() {
-          var allListsDiv = $("<div/>").attr("id", "allListsDiv");
-          
+            var allListsDiv = $("<div/>").attr("id", "allListsDiv");
 
-          function generateAlphabeticalList(key) {
-            var heading = "In alphabetical order with numbers as above";
-
-            if (key) {
-              heading =
-                key + "<br> (in alphabetical order)";
-            }
-
-            var listContainerDiv = $("<div/>").addClass("listContainerDiv");
-            var listDiv = $("<div/>")
-              .addClass("listDiv")
-              .appendTo(listContainerDiv);
-
-            $("<h3/>").html(heading).appendTo(listDiv);
-
-            var listOl = $("<ol/>").addClass("listOl");
-
-            var alphabeticalNames = [];
-
-            var i = 1;
-
-            $("ol#items li").each(function () {
-              if (!key || subsets[key].includes($(this).text())) {
-                alphabeticalNames.push({
-                  name: $(this).text(),
-                  value: i,
-                });
-                i += 1;
-              }
-            });
-
-            alphabeticalNames.sort(function (a, b) {
-              return a.name.localeCompare(b.name);
-            });
-
-            for (var i = 0; i < alphabeticalNames.length; i++) {
-              $("<li/>")
-                .text(alphabeticalNames[i].name)
-                .attr("value", alphabeticalNames[i].value)
-                .appendTo(listOl);
-            }
-
-            listOl.appendTo(listDiv);
-
-            listContainerDiv.appendTo(allListsDiv);
-          }
-
-          generateAlphabeticalList();
-
-          
-
-          for (key in subsets) {
-            if (subsets.hasOwnProperty(key)) {
-              var listContainerDiv = $("<div/>").addClass("listContainerDiv");
-              var listDiv = $("<div/>")
-                .addClass("listDiv")
-                .appendTo(listContainerDiv);
-
-              $("<h3/>")
-                .html(key + "<br> (in the order above)")
-                .appendTo(listDiv);
-
-              var listOl = $("<ol/>")
-                .addClass("listOl")
-                .attr("id", "subset-" + key.replace(" ", "-"));
-
-              $("ol#items li").each(function () {
-                if (subsets[key].includes($(this).text())) {
-                  $("<li/>").text($(this).text()).appendTo(listOl);
+            function generateAlphabeticalList(key) {
+                var heading = "In alphabetical order with numbers as above";
+                if (key) {
+                    heading = key + "<br> (in alphabetical order)";
                 }
-              });
-
-              listOl.appendTo(listDiv);
+                var listContainerDiv = $("<div/>").addClass("listContainerDiv");
+                var listDiv = $("<div/>").addClass("listDiv").appendTo(listContainerDiv);
+                $("<h3/>").html(heading).appendTo(listDiv);
+                var listOl = $("<ol/>").addClass("listOl");
+                var alphabeticalNames = [];
+                var i = 1;
+                $("ol#items li").each(function() {
+                    if (!key || subsets[key].includes($(this).text())) {
+                        alphabeticalNames.push({
+                            name: $(this).text(),
+                            value: i,
+                        });
+                        i += 1;
+                    }
+                });
+                alphabeticalNames.sort(function(a, b) {
+                    return a.name.localeCompare(b.name);
+                });
+                for (var i = 0; i < alphabeticalNames.length; i++) {
+                    $("<li/>").text(alphabeticalNames[i].name).attr("value", alphabeticalNames[i].value).appendTo(listOl);
+                }
+                listOl.appendTo(listDiv);
+                listContainerDiv.appendTo(allListsDiv);
             }
-
-            listContainerDiv.appendTo(allListsDiv);
-          }
-
-          for (key in subsets) {
-            if (subsets.hasOwnProperty(key)) {
-              generateAlphabeticalList(key);
+            generateAlphabeticalList();
+            for (key in subsets) {
+                if (subsets.hasOwnProperty(key)) {
+                    var listContainerDiv = $("<div/>").addClass("listContainerDiv");
+                    var listDiv = $("<div/>").addClass("listDiv").appendTo(listContainerDiv);
+                    $("<h3/>").html(key + "<br> (in the order above)").appendTo(listDiv);
+                    var listOl = $("<ol/>").addClass("listOl").attr("id", "subset-" + key.replace(" ", "-"));
+                    $("ol#items li").each(function() {
+                        if (subsets[key].includes($(this).text())) {
+                            $("<li/>").text($(this).text()).appendTo(listOl);
+                        }
+                    });
+                    listOl.appendTo(listDiv);
+                }
+                listContainerDiv.appendTo(allListsDiv);
             }
-          }
-
-          $("#allListsDiv").replaceWith(allListsDiv);
+            for (key in subsets) {
+                if (subsets.hasOwnProperty(key)) {
+                    generateAlphabeticalList(key);
+                }
+            }
+            $("#allListsDiv").replaceWith(allListsDiv);
         }
-
         generateLists();
-      }
+        window.addEventListener('beforeunload', function(e) {
+            if (changed) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    }
     </script>
-  </body>
+</body>
+
 </html>
